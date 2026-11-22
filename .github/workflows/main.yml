@@ -8,12 +8,21 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Install CocoaPods
         run: |
           sudo gem install cocoapods
+          pod repo update
+          pod deintegrate || true
+          rm -rf Pods
+          rm -f Podfile.lock
           pod install
+
+      - name: Show deployment targets
+        run: |
+          grep -R "IPHONEOS_DEPLOYMENT_TARGET" Pods || true
 
       - name: Build App
         run: |
