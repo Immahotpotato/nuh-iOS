@@ -8,19 +8,13 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install CocoaPods
         run: |
           sudo gem install cocoapods
           pod install
 
-      - name: List Files
-        run: ls -la
-
-      - name: Find Workspace
-        run: find . -name "*.xcworkspace"
-
-      - name: Find Xcode Project
-        run: find . -name "*.xcodeproj"
+      - name: List Schemes
+        run: |
+          xcodebuild -list -workspace ICO-Visualizer.xcworkspace
