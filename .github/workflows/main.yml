@@ -13,12 +13,15 @@ jobs:
       - name: Install CocoaPods
         run: |
           sudo gem install cocoapods
+          sed -i '' 's/platform :ios.*/platform :ios, '\''12.0'\''/' Podfile || true
+          pod install
 
-          echo "" >> Podfile
-          echo "post_install do |installer|" >> Podfile
-          echo "  installer.pods_project.targets.each do |target|" >> Podfile
-          echo "    target.build_configurations.each do |config|" >> Podfile
-          echo "      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'" >> Podfile
-          echo "    end" >> Podfile
-          echo "  end" >> Podfile
-          echo "end" >> 
+      - name: Build App
+        run: |
+          xcodebuild \
+            -workspace ICO-Visualizer.xcworkspace \
+            -scheme ICO-visualizer \
+            -configuration Release \
+            -sdk iphoneos \
+            CODE_SIGNING_ALLOWED=NO \
+            build
