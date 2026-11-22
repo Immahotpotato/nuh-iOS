@@ -22,4 +22,5 @@ jobs:
           -scheme ICO-visualizer \
           -configuration Release \
           -sdk iphoneos \
+          CODE_SIGNING_ALLOWED=NO \
           build
