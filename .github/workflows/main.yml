@@ -1,18 +1,24 @@
-- name: Install CocoaPods
-  run: |
-    sudo gem install cocoapods
+name: Build iOS
 
-    cat > Podfile.patch.rb << 'EOF'
-    post_install do |installer|
-      installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
-        end
-      end
-    end
-    EOF
+on:
+  workflow_dispatch:
 
-    echo "" >> Podfile
-    cat Podfile.patch.rb >> Podfile
+jobs:
+  build:
+    runs-on: macos-latest
 
-    pod install
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install CocoaPods
+        run: |
+          sudo gem install cocoapods
+
+          echo "" >> Podfile
+          echo "post_install do |installer|" >> Podfile
+          echo "  installer.pods_project.targets.each do |target|" >> Podfile
+          echo "    target.build_configurations.each do |config|" >> Podfile
+          echo "      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'" >> Podfile
+          echo "    end" >> Podfile
+          echo "  end" >> Podfile
+          echo "end" >> 
