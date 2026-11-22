@@ -15,6 +15,11 @@ jobs:
           sudo gem install cocoapods
           pod install
 
-      - name: List Schemes
+      - name: Build App
         run: |
-          xcodebuild -list -workspace ICO-Visualizer.xcworkspace
+          xcodebuild \
+          -workspace ICO-Visualizer.xcworkspace \
+          -scheme ICO-visualizer \
+          -configuration Release \
+          -sdk iphoneos \
+          build
