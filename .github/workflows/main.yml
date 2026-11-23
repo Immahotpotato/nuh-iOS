@@ -20,16 +20,9 @@ jobs:
           rm -f Podfile.lock
           pod install
 
-      - name: Show deployment targets
-        run: |
-          grep -R "IPHONEOS_DEPLOYMENT_TARGET" Pods || true
-
       - name: Build App
         run: |
           xcodebuild \
             -workspace ICO-Visualizer.xcworkspace \
             -scheme ICO-visualizer \
-            -configuration Release \
-            -sdk iphoneos \
-            CODE_SIGNING_ALLOWED=NO \
- 
+            -
