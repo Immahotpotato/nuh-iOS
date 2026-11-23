@@ -191,7 +191,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return UICollectionReusableView()
 
         default:
-            assert(false, "Unexpected element kind")
+    assert(false, "Unexpected element kind")
+    return UICollectionReusableView()
         }
     }
     
